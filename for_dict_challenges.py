@@ -25,8 +25,8 @@ for list in students:
     else:
         new_students[stud_name] = 1
 
-
-print(new_students)
+for name, recur in new_students.items():
+    print(name, recur)
 
 
 
@@ -40,8 +40,9 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
+    {'first_name': 'Вася'},
     {'first_name': 'Петя'},
-    {'first_name': 'Маша'},
+    {'first_name': 'Петя'},
 ]
 
 
@@ -55,16 +56,17 @@ for list in students:
     else:
         new_students[stud_name] = 1
 
-print(new_students)
 
-common = []
+name_recur = 0
+
 
 for user in new_students:
-    common.append(new_students[user])
+    if new_students[user] > name_recur:
+        name_recur = new_students[user]
+        user_names = user
 
-print(max(common))
 
-print(f'Самое частое имя среди учеников: {}')
+print(f'Самое частое имя среди учеников: {user_names}')
 
 
 # Задание 3
@@ -72,6 +74,7 @@ print(f'Самое частое имя среди учеников: {}')
 # Пример вывода:
 # Самое частое имя в классе 1: Вася
 # Самое частое имя в классе 2: Маша
+
 
 school_students = [
     [  # это – первый класс
@@ -89,7 +92,28 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-# ???
+
+
+for one_class in school_students:
+    class_students = {}
+    for dict in one_class:
+        name_class = dict['first_name']
+        if name_class in class_students:
+            class_students[name_class] = class_students.get(name_class) + 1
+        else:
+            class_students[name_class] = 1
+    print(class_students)
+
+    name_recur = 0
+
+    for name_stud in class_students:
+        if class_students[name_stud] > name_recur:
+            name_recur = class_students[name_stud]
+            print(f'Самое частое имя в классе №: {name_stud}') # не понимаю как прилично здесь вывести номер класса
+
+#    for class_num, class_students in enumerate(class_students, start=1):
+#        print(f'Самое частое имя в классе {class_num}: {name_stud}')
+
 
 
 # Задание 4
