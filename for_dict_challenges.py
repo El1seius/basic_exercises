@@ -5,6 +5,7 @@
 # Маша: 2
 # Петя: 2
 
+
 students = [
     {'first_name': 'Вася'},
     {'first_name': 'Петя'},
@@ -12,7 +13,21 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+
+
+new_students = {}
+
+
+for list in students:
+    stud_name = list['first_name']
+    if stud_name in new_students:
+        new_students[stud_name] = new_students.get(stud_name) + 1
+    else:
+        new_students[stud_name] = 1
+
+
+print(new_students)
+
 
 
 # Задание 2
@@ -25,8 +40,31 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
+    {'first_name': 'Петя'},
+    {'first_name': 'Маша'},
 ]
-# ???
+
+
+new_students = {}
+
+
+for list in students:
+    stud_name = list['first_name']
+    if stud_name in new_students:
+        new_students[stud_name] = new_students.get(stud_name) + 1
+    else:
+        new_students[stud_name] = 1
+
+print(new_students)
+
+common = []
+
+for user in new_students:
+    common.append(new_students[user])
+
+print(max(common))
+
+print(f'Самое частое имя среди учеников: {}')
 
 
 # Задание 3

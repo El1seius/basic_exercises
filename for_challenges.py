@@ -57,10 +57,8 @@ groups = [
 print(f'Всего {len(groups)} группы')
 
 
-count = 1
-for group in groups:
-    print(f'Группа {count}: {len(group)} ученика')
-    count = count + 1
+for group_num, group in enumerate(groups, start =1):
+    print(f'Группа {group_num}: {len(group)} ученика')
 
 
 # Задание 5
@@ -76,7 +74,5 @@ groups = [
 ]
 
 
-count = 1
-for group in groups:
-    print(f'Группа {count}: {group}')
-    count = count + 1
+for group_num, group in enumerate(groups, start =1):
+    print(f'Группа {group_num}: {group}')
