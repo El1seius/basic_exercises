@@ -15,17 +15,17 @@ students = [
 ]
 
 
-new_students = {}
+repeat_students = {}
 
 
-for list in students:
-    stud_name = list['first_name']
-    if stud_name in new_students:
-        new_students[stud_name] = new_students.get(stud_name) + 1
+for inform_student in students:
+    stud_name = inform_student['first_name']
+    if stud_name in repeat_students:
+        repeat_students[stud_name] = repeat_students.get(stud_name) + 1
     else:
-        new_students[stud_name] = 1
+        repeat_students[stud_name] = 1
 
-for name, recur in new_students.items():
+for name, recur in repeat_students.items():
     print(name, recur)
 
 
@@ -46,27 +46,21 @@ students = [
 ]
 
 
-new_students = {}
+repeat_students_2 = {}
 
 
-for list in students:
-    stud_name = list['first_name']
-    if stud_name in new_students:
-        new_students[stud_name] = new_students.get(stud_name) + 1
+for inf_student in students:
+    stud_name = inf_student['first_name']
+    if stud_name in repeat_students_2:
+        repeat_students_2[stud_name] = repeat_students_2.get(stud_name) + 1
     else:
-        new_students[stud_name] = 1
+        repeat_students_2[stud_name] = 1
 
 
-name_recur = 0
+max_key = max(repeat_students_2, key=repeat_students_2.get)
 
 
-for user in new_students:
-    if new_students[user] > name_recur:
-        name_recur = new_students[user]
-        user_names = user
-
-
-print(f'Самое частое имя среди учеников: {user_names}')
+print(f'Самое частое имя среди учеников: {max_key}')
 
 
 # Задание 3
@@ -93,9 +87,12 @@ school_students = [
     ],
 ]
 
-
+count = 0
 for one_class in school_students:
-    class_students = {}
+    
+    class_students = {}   
+    count += 1
+
     for dict in one_class:
         name_class = dict['first_name']
         if name_class in class_students:
@@ -104,16 +101,8 @@ for one_class in school_students:
             class_students[name_class] = 1
     print(class_students)
 
-    name_recur = 0
-
-    for name_stud in class_students:
-        if class_students[name_stud] > name_recur:
-            name_recur = class_students[name_stud]
-            print(f'Самое частое имя в классе №: {name_stud}') # не понимаю как прилично здесь вывести номер класса
-
-#    for class_num, class_students in enumerate(class_students, start=1):
-#        print(f'Самое частое имя в классе {class_num}: {name_stud}')
-
+    max_repeat = max(class_students, key=class_students.get)
+    print(f'Самое частое имя в классе {count}: {max_repeat}')
 
 
 # Задание 4

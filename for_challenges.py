@@ -73,6 +73,6 @@ groups = [
     ['Вася', 'Маша', 'Саша', 'Женя'],
 ]
 
-
-for group_num, group in enumerate(groups, start =1):
-    print(f'Группа {group_num}: {group}')
+for group_num, entrance_group in enumerate(groups, start =1):
+    conclusion = ', '.join(entrance_group)
+    print(f'Группа {group_num}: {conclusion}')
