@@ -20,6 +20,7 @@ repeat_students = {}
 
 for inform_student in students:
     stud_name = inform_student['first_name']
+    print(repeat_students)
     if stud_name in repeat_students:
         repeat_students[stud_name] = repeat_students.get(stud_name) + 1
     else:
@@ -74,8 +75,7 @@ school_students = [
     [  # это – первый класс
         {'first_name': 'Вася'},
         {'first_name': 'Вася'},
-    ],
-    [  # это – второй класс
+    ],[  # это – второй класс
         {'first_name': 'Маша'},
         {'first_name': 'Маша'},
         {'first_name': 'Оля'},
@@ -87,22 +87,20 @@ school_students = [
     ],
 ]
 
-count = 0
-for one_class in school_students:
-    
-    class_students = {}   
-    count += 1
 
-    for dict in one_class:
-        name_class = dict['first_name']
+for class_num, school_students in enumerate(school_students, start =1):
+    class_students = {}   
+
+    for every_class in school_students:
+        name_class = every_class['first_name']
         if name_class in class_students:
             class_students[name_class] = class_students.get(name_class) + 1
         else:
             class_students[name_class] = 1
-    print(class_students)
+        print(class_students)
 
     max_repeat = max(class_students, key=class_students.get)
-    print(f'Самое частое имя в классе {count}: {max_repeat}')
+    print(f'Самое частое имя в классе {class_num}: {max_repeat}')
 
 
 # Задание 4
@@ -123,7 +121,9 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
+
+
+
 
 
 # Задание 5
