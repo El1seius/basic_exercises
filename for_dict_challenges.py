@@ -74,30 +74,33 @@ print(f'Самое частое имя среди учеников: {max_key}')
 school_students = [
     [  # это – первый класс
         {'first_name': 'Вася'},
-        {'first_name': 'Вася'},
+        {'first_name': 'Вася'}
     ],[  # это – второй класс
         {'first_name': 'Маша'},
         {'first_name': 'Маша'},
-        {'first_name': 'Оля'},
+        {'first_name': 'Оля'}
     ],[  # это – третий класс
         {'first_name': 'Женя'},
         {'first_name': 'Петя'},
         {'first_name': 'Женя'},
-        {'first_name': 'Саша'},
+        {'first_name': 'Саша'}
     ],
 ]
 
 
+count_name = 0
+
+
 for class_num, school_students in enumerate(school_students, start =1):
-    class_students = {}   
+    class_students = {}
 
     for every_class in school_students:
-        name_class = every_class['first_name']
-        if name_class in class_students:
-            class_students[name_class] = class_students.get(name_class) + 1
+        if every_class['first_name'] in class_students:
+            count_name += 1
+            class_students[every_class['first_name']] = count_name
         else:
-            class_students[name_class] = 1
-        print(class_students)
+            count_name = 1
+            class_students[every_class['first_name']] = count_name
 
     max_repeat = max(class_students, key=class_students.get)
     print(f'Самое частое имя в классе {class_num}: {max_repeat}')
