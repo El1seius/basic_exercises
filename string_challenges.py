@@ -5,7 +5,7 @@ print(word[-1])
 
 # Вывести количество букв "а" в слове
 word = 'Архангельск'
-print(word.count('а'))
+print(word.lower().count('а'))
 
 
 # Вывести количество гласных букв в слове
@@ -26,8 +26,8 @@ print(len(sentence.split(" ")))
 # Вывести первую букву каждого слова на отдельной строке
 sentence = 'Мы приехали в гости'
 sentence_word = sentence.split(" ")
-for element in sentence_word:
-    print(element[0])
+for word in sentence_word:
+    print(word[0])
 
 
 # Вывести усреднённую длину слова в предложении

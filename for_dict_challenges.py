@@ -19,22 +19,23 @@ repeat_students = {}
 
 
 for inform_student in students:
-    stud_name = inform_student['first_name']
-    print(repeat_students)
-    if stud_name in repeat_students:
-        repeat_students[stud_name] = repeat_students.get(stud_name) + 1
+    student_name = inform_student['first_name']
+    if student_name in repeat_students:
+        repeat_students[student_name] = repeat_students.get(student_name) + 1
     else:
-        repeat_students[stud_name] = 1
+        repeat_students[student_name] = 1
 
-for name, recur in repeat_students.items():
-    print(name, recur)
 
+for name, count_name in repeat_students.items():
+    print(name, count_name)
 
 
 # Задание 2
 # Дан список учеников, нужно вывести самое часто повторящееся имя
 # Пример вывода:
 # Самое частое имя среди учеников: Маша
+
+
 students = [
     {'first_name': 'Вася'},
     {'first_name': 'Петя'},
@@ -47,20 +48,18 @@ students = [
 ]
 
 
-repeat_students_2 = {}
+number_repetitions_names = {}
 
 
 for inf_student in students:
-    stud_name = inf_student['first_name']
-    if stud_name in repeat_students_2:
-        repeat_students_2[stud_name] = repeat_students_2.get(stud_name) + 1
+    student_name = inf_student['first_name']
+    if student_name in number_repetitions_names:
+        number_repetitions_names[student_name] = number_repetitions_names.get(student_name) + 1
     else:
-        repeat_students_2[stud_name] = 1
+        number_repetitions_names[student_name] = 1
 
 
-max_key = max(repeat_students_2, key=repeat_students_2.get)
-
-
+max_key = max(number_repetitions_names, key=number_repetitions_names.get)
 print(f'Самое частое имя среди учеников: {max_key}')
 
 
@@ -91,16 +90,15 @@ school_students = [
 count_name = 0
 
 
-for class_num, school_students in enumerate(school_students, start =1):
+for class_num, every_class in enumerate(school_students, start=1):
     class_students = {}
-
-    for every_class in school_students:
-        if every_class['first_name'] in class_students:
+    for every_schoolkid in every_class:
+        if every_schoolkid['first_name'] in class_students:
             count_name += 1
-            class_students[every_class['first_name']] = count_name
+            class_students[every_schoolkid['first_name']] = count_name
         else:
             count_name = 1
-            class_students[every_class['first_name']] = count_name
+            class_students[every_schoolkid['first_name']] = count_name
 
     max_repeat = max(class_students, key=class_students.get)
     print(f'Самое частое имя в классе {class_num}: {max_repeat}')
@@ -112,11 +110,14 @@ for class_num, school_students in enumerate(school_students, start =1):
 # Класс 2a: девочки 2, мальчики 0 
 # Класс 2б: девочки 0, мальчики 2
 
+
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '2б', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
     {'class': '2б', 'students': [{'first_name': 'Даша'}, {'first_name': 'Олег'}, {'first_name': 'Маша'}]},
 ]
+
+
 is_male = {
     'Олег': True,
     'Маша': False,
@@ -126,7 +127,27 @@ is_male = {
 }
 
 
-
+for inform_class in school:
+    class_num = inform_class['class']
+    if inform_class.get('students'):
+        students = inform_class['students']
+        count_women = 0
+        count_man = 0
+        
+        for name_stud in students:
+            name_gender = name_stud['first_name']
+            if name_gender in is_male:
+                gender = is_male[name_gender]
+                if gender:
+                    count_women += 1
+                else:
+                    count_man += 1
+            else:
+                print(f'У {name_gender} не обозначен пол')
+                count_man = "Ошибка"
+                count_women = " Ошибка"
+                break
+    print(f'Класс {class_num}: девочки {count_man},  мальчики {count_women}')
 
 
 # Задание 5
