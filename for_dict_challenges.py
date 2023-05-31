@@ -6,6 +6,9 @@
 # Петя: 2
 
 
+print('Ответ на задание 1:')
+
+
 students = [
     {'first_name': 'Вася'},
     {'first_name': 'Петя'},
@@ -34,6 +37,9 @@ for name, count_name in repeat_students.items():
 # Дан список учеников, нужно вывести самое часто повторящееся имя
 # Пример вывода:
 # Самое частое имя среди учеников: Маша
+
+
+print('Ответ на задание 2:')
 
 
 students = [
@@ -68,6 +74,9 @@ print(f'Самое частое имя среди учеников: {max_key}')
 # Пример вывода:
 # Самое частое имя в классе 1: Вася
 # Самое частое имя в классе 2: Маша
+
+
+print('Ответ на задание 3:')
 
 
 school_students = [
@@ -111,6 +120,9 @@ for class_num, every_class in enumerate(school_students, start=1):
 # Класс 2б: девочки 0, мальчики 2
 
 
+print('Ответ на задание 4:')
+
+
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
     {'class': '2б', 'students': [{'first_name': 'Олег'}, {'first_name': 'Миша'}]},
@@ -131,23 +143,23 @@ for inform_class in school:
     class_num = inform_class['class']
     if inform_class.get('students'):
         students = inform_class['students']
-        count_women = 0
         count_man = 0
+        count_women = 0
         
         for name_stud in students:
             name_gender = name_stud['first_name']
             if name_gender in is_male:
                 gender = is_male[name_gender]
                 if gender:
-                    count_women += 1
-                else:
                     count_man += 1
+                else:
+                    count_women += 1
             else:
                 print(f'У {name_gender} не обозначен пол')
+                count_women = "Ошибка"
                 count_man = "Ошибка"
-                count_women = " Ошибка"
                 break
-    print(f'Класс {class_num}: девочки {count_man},  мальчики {count_women}')
+    print(f'Класс {class_num}: девочки {count_women},  мальчики {count_man}')
 
 
 # Задание 5
@@ -155,6 +167,10 @@ for inform_class in school:
 # Пример вывода:
 # Больше всего мальчиков в классе 3c
 # Больше всего девочек в классе 2a
+
+
+print('Ответ на задание 5:')
+
 
 school = [
     {'class': '2a', 'students': [{'first_name': 'Маша'}, {'first_name': 'Оля'}]},
@@ -166,5 +182,50 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
-# ???
 
+
+sum_gender_in_scool =[]
+
+
+for inform_class in school:
+    num_gender_in_class = {}
+    class_num = inform_class['class']
+    num_gender_in_class['class'] = class_num
+    if inform_class.get('students'):
+        students = inform_class['students']
+        count_women = 0
+        count_man = 0
+
+        for name_students in students:
+            name_gender = name_students['first_name']
+            if name_gender in is_male:
+                gender = is_male[name_gender]
+                gender_list = {}
+                if gender:
+                    count_man += 1
+                else:
+                    count_women += 1
+            else:
+                print(f'У {name_gender} не обозначен пол')
+                count_women = "Ошибка"
+                count_man = "Ошибка"
+                break
+        gender_list['девочки'] = count_women
+        gender_list['мальчики'] = count_man
+        num_gender_in_class['gender'] = gender_list
+        sum_gender_in_scool.append(num_gender_in_class)
+    
+
+        
+
+for inform_every_class in sum_gender_in_scool:
+    num_class = inform_every_class.get('class')
+
+    if inform_every_class.get('gender'):
+        gender_lists = inform_every_class['gender']
+        max_gender = max(gender_lists, key=gender_lists.get)
+
+    if max_gender == 'девочки':
+        print(f'Больше всего девочек в классе {num_class}')
+    elif max_gender == 'мальчики':
+        print(f'Больше всего мальчиков в классе {num_class}')
