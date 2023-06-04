@@ -66,5 +66,54 @@ def generate_chat_history():
     return messages
 
 
+def user_max_message(messages): 
+    numb_user_message = {}
+    for one_message in messages:
+        id_user = one_message['sent_by']
+        if id_user in numb_user_message:
+            numb_user_message[id_user] +=1
+        else:
+            numb_user_message[id_user] =1
+
+    id_user_max_message = max(numb_user_message, key=numb_user_message.get)
+    return id_user_max_message
+        
+
+def message_with_max_answer(messages):
+    numb_id_message = {}
+    for one_message in messages:
+        id_message = one_message['reply_for']
+        if id_message != None:
+            if id_message in numb_id_message:
+                numb_id_message[id_message] += 1
+            else:
+                numb_id_message[id_message] = 1
+
+    id_message_max = max(numb_id_message, key=numb_id_message.get)
+
+    for one_message in messages:
+        if id_message_max == one_message['id']:
+            return one_message['sent_by']
+
+
+def message_with_max_viewing(messages):
+    numb_viewing = {}
+    for one_message in messages:
+        id_user = one_message['sent_by']
+        numb_viewing[id_user] = len(one_message['seen_by'])
+    max_viewing = max(numb_viewing, key=numb_viewing.get)
+    
+    id_users =[]
+    for every_user in numb_viewing:
+        if numb_viewing[max_viewing] == numb_viewing[every_user]:
+            id_users.append(every_user)
+    print(numb_viewing)
+    return id_users
+
+
 if __name__ == "__main__":
-    print(generate_chat_history())
+    messages = generate_chat_history()
+
+    print(f'Больше всех сообщений написал пользователь с ID: {user_max_message(messages)}')
+    print(f'Сообщение, на которое больше всего отвечали, принадлежит пользователю: {message_with_max_answer(messages)}')
+    print(f'Cообщения, которые видело больше всего уникальных пользователей, принадлежит пользователям: {message_with_max_viewing(messages)}')
