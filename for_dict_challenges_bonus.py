@@ -36,6 +36,7 @@ import datetime
 
 import lorem
 
+from collections import Counter
 
 def generate_chat_history():
     messages_amount = random.randint(200, 1000)
@@ -67,28 +68,24 @@ def generate_chat_history():
 
 
 def user_max_message(messages): 
-    numb_user_message = {}
+    id_user_message = []
     for one_message in messages:
         id_user = one_message['sent_by']
-        if id_user in numb_user_message:
-            numb_user_message[id_user] +=1
-        else:
-            numb_user_message[id_user] =1
+        id_user_message.append(id_user)
 
+    numb_user_message = Counter(id_user_message)
     id_user_max_message = max(numb_user_message, key=numb_user_message.get)
     return id_user_max_message
         
 
 def message_with_max_answer(messages):
-    numb_id_message = {}
+    list_with_id_message = []
     for one_message in messages:
         id_message = one_message['reply_for']
-        if id_message != None:
-            if id_message in numb_id_message:
-                numb_id_message[id_message] += 1
-            else:
-                numb_id_message[id_message] = 1
+        if id_message is not None:
+            list_with_id_message.append(id_message)
 
+    numb_id_message = Counter(list_with_id_message)
     id_message_max = max(numb_id_message, key=numb_id_message.get)
 
     for one_message in messages:
@@ -97,18 +94,29 @@ def message_with_max_answer(messages):
 
 
 def message_with_max_viewing(messages):
-    numb_viewing = {}
+    users_with_unique_users = {}
     for one_message in messages:
         id_user = one_message['sent_by']
-        numb_viewing[id_user] = len(one_message['seen_by'])
-    max_viewing = max(numb_viewing, key=numb_viewing.get)
+        id_seen_by = one_message['seen_by']
+        if id_user in users_with_unique_users:
+            for user_seen_by in id_seen_by:
+                if user_seen_by not in users_with_unique_users[id_user]:
+                    users_with_unique_users[id_user].append(user_seen_by)
+        else:
+            users_with_unique_users[id_user] = id_seen_by
+
+        if id_user in users_with_unique_users[id_user]:
+                users_with_unique_users[id_user].remove(id_user)
+
+    id_with_max_nubm_unique_users = max(users_with_unique_users, key=users_with_unique_users.get)
+    max_nubm_unique_users = len(users_with_unique_users[id_with_max_nubm_unique_users])
+    users_with_max_unique_users = []
+    for every_user in users_with_unique_users:
+        nubm_unique_user = len(users_with_unique_users[every_user])
+        if nubm_unique_user >=max_nubm_unique_users:
+            users_with_max_unique_users.append(every_user)
     
-    id_users =[]
-    for every_user in numb_viewing:
-        if numb_viewing[max_viewing] == numb_viewing[every_user]:
-            id_users.append(every_user)
-    print(numb_viewing)
-    return id_users
+    return users_with_max_unique_users
 
 
 if __name__ == "__main__":
@@ -116,4 +124,4 @@ if __name__ == "__main__":
 
     print(f'Больше всех сообщений написал пользователь с ID: {user_max_message(messages)}')
     print(f'Сообщение, на которое больше всего отвечали, принадлежит пользователю: {message_with_max_answer(messages)}')
-    print(f'Cообщения, которые видело больше всего уникальных пользователей, принадлежит пользователям: {message_with_max_viewing(messages)}')
+    print(f'ID пользователей, сообщения, которых видело больше всего уникальных пользователей: {message_with_max_viewing(messages)}')
