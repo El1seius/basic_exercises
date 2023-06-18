@@ -32,7 +32,7 @@ messages = [
 """
 import random
 import uuid
-import datetime
+import datetime 
 
 import lorem
 
@@ -113,10 +113,80 @@ def message_with_max_viewing(messages):
     users_with_max_unique_users = []
     for every_user in users_with_unique_users:
         nubm_unique_user = len(users_with_unique_users[every_user])
-        if nubm_unique_user >=max_nubm_unique_users:
+        if nubm_unique_user == max_nubm_unique_users:
             users_with_max_unique_users.append(every_user)
     
     return users_with_max_unique_users
+
+
+def what_time_with_max_message(messages):
+    time_create_message = []
+    for one_message in messages:
+        hour_create_message = one_message['sent_at'].hour
+        if hour_create_message < 12:
+            time_create_message.append('утром')
+        elif 12 <= hour_create_message >= 18:
+            time_create_message.append('днём')
+        else:
+            time_create_message.append('вечером')
+
+    numb_message_in_period_of_time = Counter(time_create_message)
+    max_numb_message_in_period_of_time = max(numb_message_in_period_of_time, key=numb_message_in_period_of_time.get)
+    return max_numb_message_in_period_of_time
+
+
+# Задание №5
+
+def complite_id_messages_with_reply_None (messages):
+    id_message_with_reply_None = []
+    for one_message in messages:
+        if one_message['reply_for'] is None:
+            id_message_with_reply_None.append(one_message['id'])
+
+    return id_message_with_reply_None
+
+
+def get_id_last_messages_in_thread(id_message_for_reply):
+    while True:
+        temp_list_id_message_for_reply = []
+        for one_message in messages:
+            if one_message['reply_for'] in id_message_for_reply:
+                temp_list_id_message_for_reply.append(one_message['id'])
+
+        if len(temp_list_id_message_for_reply) == 0:
+            break
+
+        id_message_for_reply = temp_list_id_message_for_reply[:]
+
+    return id_message_for_reply
+
+
+def get_id_message_before_last_reply(id_message_with_last_reply):
+    id_message_before_last_reply = []
+    for one_id in id_message_with_last_reply:
+        for one_message in messages:
+            if str(one_id) in str(one_message['id']):
+                id_message_before_last_reply.append(one_message['reply_for'])
+                
+    return id_message_before_last_reply
+    
+def id_messages_with_most_long_replies(messages):
+    id_message_for_reply = complite_id_messages_with_reply_None (messages)
+    id_message_with_last_reply = get_id_last_messages_in_thread(id_message_for_reply)
+    id_message_before_last_reply = get_id_message_before_last_reply(id_message_with_last_reply)
+
+    finish_id_messages = []
+    for one_id in id_message_before_last_reply:
+        while one_id is not None:
+            for one_message in messages:
+                if str(one_id) in str(one_message['id']):
+                    if one_message['reply_for'] is not None:
+                        one_id = one_message['reply_for']
+                    else:
+                        finish_id_messages.append(str(one_message['id']))
+                        one_id = None     
+
+    return finish_id_messages
 
 
 if __name__ == "__main__":
@@ -125,3 +195,5 @@ if __name__ == "__main__":
     print(f'Больше всех сообщений написал пользователь с ID: {user_max_message(messages)}')
     print(f'Сообщение, на которое больше всего отвечали, принадлежит пользователю: {message_with_max_answer(messages)}')
     print(f'ID пользователей, сообщения, которых видело больше всего уникальных пользователей: {message_with_max_viewing(messages)}')
+    print(f'Больше всего сообщений в чате: {what_time_with_max_message(messages)}')
+    print(f'Идентификаторы сообщений, который стали началом для самых длинных тредов (цепочек ответов) {id_messages_with_most_long_replies(messages)}')
