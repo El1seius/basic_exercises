@@ -60,7 +60,7 @@ number_repetitions_names = {}
 for inf_student in students:
     student_name = inf_student['first_name']
     if student_name in number_repetitions_names:
-        number_repetitions_names[student_name] = number_repetitions_names.get(student_name) + 1
+        number_repetitions_names[student_name] += 1
     else:
         number_repetitions_names[student_name] = 1
 
@@ -96,18 +96,14 @@ school_students = [
 ]
 
 
-count_name = 0
-
-
 for class_num, every_class in enumerate(school_students, start=1):
     class_students = {}
     for every_schoolkid in every_class:
         if every_schoolkid['first_name'] in class_students:
-            count_name += 1
-            class_students[every_schoolkid['first_name']] = count_name
+
+            class_students[every_schoolkid['first_name']] += 1
         else:
-            count_name = 1
-            class_students[every_schoolkid['first_name']] = count_name
+            class_students[every_schoolkid['first_name']] = 1
 
     max_repeat = max(class_students, key=class_students.get)
     print(f'Самое частое имя в классе {class_num}: {max_repeat}')
